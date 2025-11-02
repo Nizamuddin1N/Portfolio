@@ -60,7 +60,7 @@ export default function Hero() {
         >
           <p className="text-sm text-slate-400">CSE (AI/ML) — Faculty of Technology University of Delhi</p>
           <h3 className="mt-3 text-lg font-semibold text-slate-100">
-            CGPA 7.6 • Expected 2027
+            Expected 2027
           </h3>
           <p className="mt-3 text-slate-400 leading-relaxed">
             Computer Science and Engineering student with strong problem-solving and full-stack development skills. Built real-time web applications using React, Node.js, MongoDB, and Docker, following Agile and testing practices. Seeking SDE/Full Stack roles to design scalable, cloud-based solutions.
