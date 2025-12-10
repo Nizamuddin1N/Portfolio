@@ -12,7 +12,7 @@ export default function Skills() {
     {
       title: "Frontend",
       icon: <FaLaptopCode className="text-accent text-xl" />,
-      skills: ["React", "HTML5", "CSS3", "Tailwind CSS", "Redux Toolkit"]
+      skills: ["React", "HTML5", "CSS3", "Tailwind CSS", "NestJS"]
     },
     {
       title: "Backend",
