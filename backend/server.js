@@ -6,16 +6,18 @@ require('dotenv').config()
 const app = express()
 
 // ── Middleware ─────────────────────────────────────────────────────
-app.use(
-  cors({
-    origin: [
-      'http://localhost:3000',
-      'https://portfolio-nizm.vercel.app',
-      process.env.FRONTEND_URL,
-    ],
-    methods: ['GET', 'POST'],
-  })
-)
+app.use(express.json())
+
+// ── CORS — allow all origins (fixes Vercel → Render issue) ────────
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200)
+  }
+  next()
+})
 
 // ── Nodemailer transporter ─────────────────────────────────────────
 const transporter = nodemailer.createTransport({
