@@ -6,10 +6,13 @@ require('dotenv').config()
 const app = express()
 
 // ── Middleware ─────────────────────────────────────────────────────
-app.use(express.json())
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://portfolio-nizm.vercel.app',
+      process.env.FRONTEND_URL,
+    ],
     methods: ['GET', 'POST'],
   })
 )
