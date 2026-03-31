@@ -1,0 +1,266 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ──────────────────────────────────────────────── */
+:root {
+  --bg:           #050508;
+  --bg2:          #090910;
+  --bg3:          #0c0c16;
+  --green:        #00FF87;
+  --green2:       #00CC6A;
+  --amber:        #FFB800;
+  --red:          #FF4545;
+  --blue:         #4D9FFF;
+  --text:         #E8E8F0;
+  --muted:        rgba(232, 232, 240, 0.38);
+  --border:       rgba(255, 255, 255, 0.06);
+  --border-green: rgba(0, 255, 135, 0.2);
+}
+
+/* ── Base ───────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  cursor: none;
+}
+
+/* ── Custom Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 135, 0.35);
+  border-radius: 2px;
+}
+
+/* ── Keyframe Animations ────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%       { transform: translateY(-30px) scale(1.04); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 135, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 255, 135, 0); }
+}
+
+@keyframes scrollAnim {
+  0%, 100% { height: 60px; opacity: 1; }
+  50%       { height: 80px; opacity: 0.5; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ── Utility Classes ────────────────────────────────────────────── */
+
+/* Font shortcuts */
+.font-display { font-family: var(--font-display), sans-serif; }
+.font-body    { font-family: var(--font-body), sans-serif; }
+.font-mono    { font-family: var(--font-mono), monospace; }
+
+/* ── Scroll Reveal ──────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Noise Overlay ──────────────────────────────────────────────── */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  opacity: 0.35;
+}
+
+/* ── Grid Background ────────────────────────────────────────────── */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(0, 255, 135, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 135, 0.035) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── Floating Orbs ──────────────────────────────────────────────── */
+.orb-1 {
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.orb-2 {
+  animation: orbFloat 10s ease-in-out infinite 3s;
+}
+
+/* ── Custom Cursor ──────────────────────────────────────────────── */
+#cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--green);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s, height 0.2s, opacity 0.2s;
+  mix-blend-mode: screen;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(0, 255, 135, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.25s, height 0.25s, border-color 0.25s;
+}
+
+/* ── Dot Pulse ──────────────────────────────────────────────────── */
+.pulse-dot {
+  animation: pulseDot 2s ease-in-out infinite;
+}
+
+/* ── Scroll Line ────────────────────────────────────────────────── */
+.scroll-line {
+  width: 1px;
+  background: linear-gradient(to bottom, var(--green), transparent);
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+
+/* ── Typewriter Cursor ──────────────────────────────────────────── */
+.type-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--green);
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: blink 1s step-end infinite;
+}
+
+/* ── Section Tag Line ───────────────────────────────────────────── */
+.section-line {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-line::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 1px;
+  background: var(--green);
+  flex-shrink: 0;
+}
+
+/* ── Card Hover Effects ─────────────────────────────────────────── */
+
+/* Green top line that slides in on hover */
+.card-top-line {
+  position: relative;
+  overflow: hidden;
+}
+.card-top-line::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.card-top-line:hover::before {
+  transform: scaleX(1);
+}
+
+/* Green left bar that grows on hover (research cards) */
+.card-left-bar {
+  position: relative;
+  overflow: hidden;
+}
+.card-left-bar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 0;
+  background: var(--green);
+  transition: height 0.4s ease;
+  border-radius: 0 2px 2px 0;
+}
+.card-left-bar:hover::before {
+  height: 100%;
+}
+
+/* ── Form Fields ────────────────────────────────────────────────── */
+.form-field {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.form-field:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(0, 255, 135, 0.08);
+}
+.form-field::placeholder {
+  color: var(--muted);
+}
+textarea.form-field {
+  resize: none;
+  height: 130px;
+  line-height: 1.6;
+}
+
+/* ── Mobile — disable custom cursor ────────────────────────────── */
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+  #cursor,
+  #cursor-ring {
+    display: none;
+  }
+}
