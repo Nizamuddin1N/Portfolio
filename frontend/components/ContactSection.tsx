@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import emailjs from '@emailjs/browser'
 import { CONTACT_LINKS } from '@/lib/data'
 
 interface FormState {
@@ -40,32 +41,32 @@ export default function ContactSection() {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('loading')
     setErrMsg('')
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/contact`,
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
-          method:  'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body:    JSON.stringify(form),
-        }
+          from_name:  form.name,
+          from_email: form.email,
+          subject:    form.subject || 'No Subject',
+          message:    form.message,
+          to_email:   'nizamuddin00128@gmail.com',
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       )
-      const data = await res.json()
-      if (res.ok && data.success) {
-        setStatus('success')
-        setForm({ name: '', email: '', subject: '', message: '' })
-      } else {
-        throw new Error(data.error || 'Something went wrong')
-      }
+
+      setStatus('success')
+      setForm({ name: '', email: '', subject: '', message: '' })
+
     } catch (err: unknown) {
+      console.error('EmailJS error:', err)
       setStatus('error')
-      setErrMsg(
-        err instanceof Error ? err.message : 'Failed to send. Please email me directly.'
-      )
+      setErrMsg('Failed to send. Please email me directly.')
     }
   }
 
